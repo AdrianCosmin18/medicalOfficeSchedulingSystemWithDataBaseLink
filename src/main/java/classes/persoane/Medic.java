@@ -16,7 +16,7 @@ public class Medic extends Persoana implements Comparable<Medic>{
 
     public Medic(String nume, String parola, int varsta, String tip, String specializare, double salariu, int xp) {
 
-        super(nume, parola, varsta, tip);
+        super(nume, parola, varsta, "Medic");
         this.specializare = specializare;
         this.salariu = salariu;
         this.experienta = xp;
