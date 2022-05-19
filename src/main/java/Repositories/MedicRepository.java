@@ -16,7 +16,7 @@ public class MedicRepository extends Repository<Medic>{
     }
 
     @Override
-    protected void insert(Medic medic) {
+    public void insert(Medic medic) {
 
         String text = "";
         text += "insert into medici (nume, parola, varsta, tip, specializare, salariu, experienta) values (";
@@ -26,14 +26,14 @@ public class MedicRepository extends Repository<Medic>{
     }
 
     @Override
-    protected void delete(int id) {
+    public void delete(int id) {
 
         String text = String.format("delete from medici where id = %d ;", id);
         executeStatement(text);
     }
 
     @Override
-    protected ResultSet allResultSet() {
+    public ResultSet allResultSet() {
         executeStatement("select * from medici;");
         try{
 
@@ -46,7 +46,7 @@ public class MedicRepository extends Repository<Medic>{
     }
 
     @Override
-    protected List<Medic> all() {
+    public List<Medic> all() {
 
         ResultSet set = allResultSet();
         List<Medic> medici = new ArrayList<>();
@@ -68,14 +68,14 @@ public class MedicRepository extends Repository<Medic>{
     }
 
     @Override
-    protected void update(Medic medic) {
+    public void update(Medic medic) {
 
         String text = String.format("update medici set nume = '%s', parola = '%s', varsta = %d, tip = '%s', specializare = '%s', salariu = %.2f, experienta = %d where id = %d ;", medic.getNume(), medic.getParola(), medic.getVarsta(), medic.getTip(), medic.getSpecializare(), medic.getSalariu(), medic.getExperienta(), medic.getId());
         executeStatement(text);
     }
 
     @Override
-    protected boolean existsID(int id) {
+    public boolean existsID(int id) {
 
         executeStatement(String.format("select * from medici where id = %d", id));
 
@@ -115,5 +115,16 @@ public class MedicRepository extends Repository<Medic>{
             }
         }
         return null;
+    }
+
+    @Override
+    public void traverse(){
+
+        List<Medic> medici = all();
+        for(Medic m : medici){
+
+            System.out.println(m);
+            System.out.println();
+        }
     }
 }

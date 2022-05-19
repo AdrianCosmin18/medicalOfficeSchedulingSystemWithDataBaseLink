@@ -16,7 +16,7 @@ public class ProgramariRepository extends Repository<Programare>{
     }
 
     @Override
-    protected void insert(Programare programare) {
+    public void insert(Programare programare) {
 
         String text = "";
         text += "insert into programari (client_id, medic_id, clinica_id, data) values (";
@@ -26,14 +26,14 @@ public class ProgramariRepository extends Repository<Programare>{
     }
 
     @Override
-    protected void delete(int id) {
+    public void delete(int id) {
 
         String text = String.format("delete from programari where id = %d ;", id);
         executeStatement(text);
     }
 
     @Override
-    protected ResultSet allResultSet() {
+    public ResultSet allResultSet() {
 
         executeStatement("select * from programari;");
         try{
@@ -47,7 +47,7 @@ public class ProgramariRepository extends Repository<Programare>{
     }
 
     @Override
-    protected List<Programare> all() {
+    public List<Programare> all() {
 
         ResultSet set = allResultSet();
         List<Programare> programari = new ArrayList<>();
@@ -68,14 +68,14 @@ public class ProgramariRepository extends Repository<Programare>{
     }
 
     @Override
-    protected void update(Programare programare) {
+    public void update(Programare programare) {
 
         String text = String.format("update programari set client_id = %d, medic_id = %d, clinica_id = %d, data = '%s' where id = %d", programare.getIdClient(), programare.getIdMedic(), programare.getIdClinica(), programare.getData(), programare.getId());
         executeStatement(text);
     }
 
     @Override
-    protected boolean existsID(int id) {
+    public boolean existsID(int id) {
 
         executeStatement(String.format("select * from programari where id = %d", id));
 
@@ -134,5 +134,16 @@ public class ProgramariRepository extends Repository<Programare>{
             System.out.println("eroare la getListByClientID");
         }
         return null;
+    }
+
+    @Override
+    public void traverse(){
+
+        List<Programare> programari = all();
+        for(Programare p : programari){
+
+            System.out.println(p);
+            System.out.println();
+        }
     }
 }

@@ -43,4 +43,6 @@ public abstract class Repository<T> {
     protected abstract void update(T t);
 
     protected abstract boolean existsID(int id);
+
+    protected abstract void traverse();
 }

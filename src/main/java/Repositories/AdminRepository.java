@@ -11,7 +11,7 @@ import java.util.List;
 public class AdminRepository extends Repository<Admin>{
 
     @Override
-    protected void insert(Admin admin) {
+    public void insert(Admin admin) {
 
         String text = "";
         text += "insert into admini (nume, parola, varsta, tip) values (";
@@ -21,14 +21,14 @@ public class AdminRepository extends Repository<Admin>{
     }
 
     @Override
-    protected void delete(int id) {
+    public void delete(int id) {
 
         String text = String.format("delete from admini where id = %d ;", id);
         executeStatement(text);
     }
 
     @Override
-    protected ResultSet allResultSet() {
+    public ResultSet allResultSet() {
 
         executeStatement("select * from admini;");
         try{
@@ -42,7 +42,7 @@ public class AdminRepository extends Repository<Admin>{
     }
 
     @Override
-    protected List<Admin> all() {
+    public List<Admin> all() {
         ResultSet set = allResultSet();
         List<Admin> admini = new ArrayList<>();
 
@@ -63,7 +63,7 @@ public class AdminRepository extends Repository<Admin>{
     }
 
     @Override
-    protected void update(Admin admin) {
+    public void update(Admin admin) {
 
         String text = "";
         text += String.format("update admini set nume = '%s', parola = '%s', varsta = %d, tip = '%s' where id = %d ;", admin.getNume(), admin.getParola(), admin.getVarsta(), admin.getTip(), admin.getId());
@@ -71,7 +71,7 @@ public class AdminRepository extends Repository<Admin>{
     }
 
     @Override
-    protected boolean existsID(int id) {
+    public boolean existsID(int id) {
         executeStatement(String.format("select * from admini where id = %d", id));
 
         try{
@@ -89,6 +89,16 @@ public class AdminRepository extends Repository<Admin>{
         return false;
     }
 
+    @Override
+    public void traverse(){
+
+        List<Admin> admini = all();
+        for(Admin a : admini){
+
+            System.out.println(a);
+            System.out.println();
+        }
+    }
 
     public Admin getAdminByID(int id){
 

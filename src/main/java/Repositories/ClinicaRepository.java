@@ -15,7 +15,7 @@ public class ClinicaRepository extends Repository<Clinica> {
     }
 
     @Override
-    protected void insert(Clinica clinica) {
+    public void insert(Clinica clinica) {
 
         String textSpecializari = "";
         ArrayList<String> specializari = clinica.getSpecializari();
@@ -55,7 +55,7 @@ public class ClinicaRepository extends Repository<Clinica> {
     }
 
     @Override
-    protected void delete(int id) {
+    public void delete(int id) {
 
         String text = "";
         text += String.format("delete from clinici where id = %d ;", id);
@@ -63,7 +63,7 @@ public class ClinicaRepository extends Repository<Clinica> {
     }
 
     @Override
-    protected ResultSet allResultSet() {
+    public ResultSet allResultSet() {
 
         executeStatement("select * from clinici;");
         try{
@@ -77,7 +77,7 @@ public class ClinicaRepository extends Repository<Clinica> {
     }
 
     @Override
-    protected List<Clinica> all() {
+    public List<Clinica> all() {
 
         List<Clinica> clinici = new ArrayList<>();
         ResultSet set = allResultSet();
@@ -116,7 +116,7 @@ public class ClinicaRepository extends Repository<Clinica> {
     }
 
     @Override
-    protected void update(Clinica clinica) {
+    public void update(Clinica clinica) {
 
         String textSpecializari = "";
         ArrayList<String> specializari = clinica.getSpecializari();
@@ -151,6 +151,7 @@ public class ClinicaRepository extends Repository<Clinica> {
         executeStatement(text);
     }
 
+    @Override
     public void traverse(){
 
         List<Clinica> clinici = all();
@@ -214,4 +215,6 @@ public class ClinicaRepository extends Repository<Clinica> {
         }
         return null;
     }
+
+
 }

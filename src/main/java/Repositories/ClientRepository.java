@@ -16,7 +16,7 @@ public class ClientRepository extends Repository<Client>{
     }
 
     @Override
-    protected void insert(Client client) {
+    public void insert(Client client) {
 
         String text = "";
         text += "insert into clienti (nume, parola, varsta, tip, adresa, telefon) values (";
@@ -26,14 +26,14 @@ public class ClientRepository extends Repository<Client>{
     }
 
     @Override
-    protected void delete(int id) {
+    public void delete(int id) {
 
         String text = String.format("delete from clienti where id = %d ;", id);
         executeStatement(text);
     }
 
     @Override
-    protected ResultSet allResultSet() {
+    public ResultSet allResultSet() {
 
         executeStatement("select * from clienti;");
         try{
@@ -47,7 +47,7 @@ public class ClientRepository extends Repository<Client>{
     }
 
     @Override
-    protected List<Client> all() {
+    public List<Client> all() {
         ResultSet set = allResultSet();
         List<Client> clienti = new ArrayList<>();
 
@@ -68,7 +68,7 @@ public class ClientRepository extends Repository<Client>{
     }
 
     @Override
-    protected void update(Client client) {
+    public void update(Client client) {
 
         String text = "";
         text += String.format("update clienti set nume = '%s', parola = '%s', varsta = %d, tip = '%s', adresa = '%s', telefon = '%s' where id = %d ;", client.getNume(), client.getParola(), client.getVarsta(), client.getTip(), client.getAdresa(), client.getTelefon(), client.getId());
@@ -76,7 +76,7 @@ public class ClientRepository extends Repository<Client>{
     }
 
     @Override
-    protected boolean existsID(int id) {
+    public boolean existsID(int id) {
         executeStatement(String.format("select * from clienti where id = %d", id));
 
         try{
@@ -113,5 +113,16 @@ public class ClientRepository extends Repository<Client>{
         }
 
         return null;
+    }
+
+    @Override
+    public void traverse(){
+
+        List<Client> clienti = all();
+        for(Client c : clienti){
+
+            System.out.println(c);
+            System.out.println();
+        }
     }
 }
