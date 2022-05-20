@@ -54,4 +54,11 @@ class AdminRepositoryTest {
         System.out.println(adminRepository.getAdminByID(3));
     }
 
+    @Test
+    public void testGetAdminByNameAndPass(){
+
+        AdminRepository adminRepository = new AdminRepository();
+        System.out.println(adminRepository.getAdminByNameAndPassword("Theodor Furtuna","theo"));
+    }
+
 }

@@ -120,4 +120,24 @@ public class AdminRepository extends Repository<Admin>{
 
         return null;
     }
+
+    public Admin getAdminByNameAndPassword(String nume, String parola){
+
+        String text = String.format("select * from admini where nume = '%s' and parola = '%s';", nume, parola);
+        executeStatement(text);
+
+        try {
+            ResultSet set = statement.getResultSet();
+            if(set.next()){
+
+                Admin admin = new Admin(set.getString(2), set.getString(3), set.getInt(4), set.getString(5));
+                admin.setId(set.getInt(1));
+                return admin;
+            }
+        }catch (Exception e){
+
+            System.out.println("eroare la " + text);
+        }
+        return null;
+    }
 }

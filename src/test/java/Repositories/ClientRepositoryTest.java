@@ -50,4 +50,18 @@ class ClientRepositoryTest {
         ClientRepository clientRepository = new ClientRepository();
         System.out.println(clientRepository.getClientByID(4));
     }
+
+    @Test
+    public void testGetClientByNameAndPassword(){
+
+        ClientRepository clientRepository = new ClientRepository();
+        System.out.println(clientRepository.getClientByNameAndPassword("Laurentiu T", "1111"));
+    }
+
+    @Test
+    public void testExistsName(){
+
+        ClientRepository clientRepository = new ClientRepository();
+        assertEquals(false, clientRepository.existsName("Nedecu Ioan"));
+    }
 }

@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 public class ClientRepository extends Repository<Client>{
 
@@ -124,5 +125,44 @@ public class ClientRepository extends Repository<Client>{
             System.out.println(c);
             System.out.println();
         }
+    }
+
+    public Client getClientByNameAndPassword(String nume, String parola){
+
+        String text = String.format("select * from clienti where nume = '%s' and parola = '%s';", nume, parola);
+        executeStatement(text);
+
+        try {
+            ResultSet set = statement.getResultSet();
+            if(set.next()){
+
+                Client client = new Client(set.getString(2), set.getString(3), set.getInt(4), set.getString(5), set.getString(6), set.getString(7));
+                client.setId(set.getInt(1));
+                return client;
+            }
+        }catch (Exception e){
+
+            System.out.println("eroare la " + text);
+        }
+        return null;
+    }
+
+    public boolean existsName(String name){
+
+        executeStatement(String.format("select * from clienti where nume = '%s' ;", name));
+
+        try{
+
+            ResultSet set = statement.getResultSet();
+            if(set.next()){
+
+                return true;
+            }
+        }catch (Exception e){
+
+            System.out.println("eroare la existsName");
+        }
+
+        return false;
     }
 }

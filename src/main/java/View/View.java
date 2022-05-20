@@ -79,7 +79,7 @@ public abstract class View {
         }
         else if(alegere.equals("nu")){
 
-            clientRepository.traverse();
+            clinicaRepository.traverse();
         }
         iOsingleton.write("afiseazaListaClinici");
     }
